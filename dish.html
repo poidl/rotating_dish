@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>dish</title>
+<script src="modernizr.js"></script>
+<script src="dish.js"></script>
+</head>
+<body>
+<button onclick="start_animation()">Start Animation</button>
+<button onclick="cancel_animation()">Stop Animation</button>	
+<button onclick="slope_increase()">Increase dish slope</button>
+<button onclick="slope_decrease()">Decrease dish slope</button>
+<button onclick="friction_increase()">Increase friction</button>
+<button onclick="friction_decrease()">Decrease friction</button>
+<p id="slope"></p>
+<p id="friction"></p>
+
+<div style="position: absolute; top: 50px; left: 50px;">
+<canvas id="canvasOne" width="500" height="500" style="position: absolute; left: 0; top: 0; z-index: 0;">
+ Your browser does not support HTML5 Canvas.
+</canvas>
+<canvas id="canvasTwo" width="500" height="500" style="position: absolute; left: 0; top: 0; z-index: 1;"></canvas>
+<canvas id="canvasLOne" width="500" height="500" style="position: absolute; left: 550px; top: 0px; z-index: 0;"></canvas>
+<canvas id="canvasLTwo" width="500" height="500" style="position: absolute; left: 550px; top: 0px; z-index: 1;"></canvas>
+</div>
+
+
+</body>
+</html>
+ 
