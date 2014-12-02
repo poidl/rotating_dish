@@ -54,21 +54,27 @@ function drawDish() {
 	ctx.beginPath();
 	ctx.arc(cx, cy, radius/2, 0, 2 * Math.PI, false);
 	ctx.stroke();
+	
+	//// radial bar
+	//ctx.beginPath();
+	//ctx.rect(0, cy-0.5, cvs.width,1);
+	//ctx.fillStyle = '#000000';
+	//ctx.fill();
 		
 	// green dish decoration
     ctx.beginPath();
 	ctx.arc(cx, cy, 20, 0, 2 * Math.PI);
 	ctx.closePath();
-	ctx.fillStyle = '#00FF00';
+	ctx.fillStyle = '#000000';
 	ctx.fill();			
 	posx=0.5*cx;
 	ctx.arc(cx+posx, cy, 20, 0, 2 * Math.PI);
 	ctx.closePath();
-	ctx.fillStyle = '#00FF00';
+	ctx.fillStyle = '#000000';
 	ctx.fill();
 	ctx.arc(cx-posx, cy, 20, 0, 2 * Math.PI);
 	ctx.closePath();
-	ctx.fillStyle = '#00FF00';
+	ctx.fillStyle = '#000000';
 	ctx.fill();	
 	
 	// right
@@ -89,7 +95,7 @@ function drawDish() {
 	ctx.beginPath();
 	ctx.arc(cx, cy, 20, 0, 2 * Math.PI);
 	ctx.closePath();
-	ctx.fillStyle = '#00FF00';
+	ctx.fillStyle = '#000000';
 	ctx.fill();	
 }
 
@@ -131,7 +137,7 @@ function canvasApp() {
 			ctx.beginPath();
 			ctx.arc(me.x, me.y, 10, 0, 2 * Math.PI);
 			ctx.closePath();
-			ctx.fillStyle = '#000000';
+			ctx.fillStyle = '#FF0000';
 			ctx.fill();
 
 			phi=om*t; // from the non-inertial frame to the inertial one
@@ -143,12 +149,12 @@ function canvasApp() {
 			sine=Math.sin(phi);
 			ctx2.arc(cx+posx*cosi-posy*sine, cy+posx*sine+posy*cosi, 20, 0, 2 * Math.PI);
 			ctx2.closePath();
-			ctx2.fillStyle = '#00FF00';
+			ctx2.fillStyle = '#000000';
 			ctx2.fill();
 			posx=-0.5*cx;
 			ctx2.arc(cx+posx*cosi-posy*sine, cy+posx*sine+posy*cosi, 20, 0, 2 * Math.PI);
 			ctx2.closePath();
-			ctx2.fillStyle = '#00FF00';
+			ctx2.fillStyle = '#000000';
 			ctx2.fill();	
 			
 			ctx2.beginPath();			
@@ -156,7 +162,7 @@ function canvasApp() {
 			posy=me.y-cy;
 			ctx2.arc(cx+posx*cosi-posy*sine, cy+posx*sine+posy*cosi, 10, 0, 2 * Math.PI);
 			ctx2.closePath();
-			ctx2.fillStyle = '#000000';
+			ctx2.fillStyle = '#FF0000';
 			ctx2.fill();
 
 		}
@@ -250,7 +256,7 @@ function friction_decrease() {
 	c_r-=1;
 	update_friction();
 }
-function smack_puck() {
+function nudge_puck() {
 	puck.v+= 5.;
 }
 

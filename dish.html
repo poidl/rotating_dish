@@ -8,13 +8,24 @@
 <link href="myrules.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-
+	
+<!--
+facebook. we want friends!?
+-->
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.0";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
 
 <table style="width:1100px">
   <tr>
     <td class="rightAlign"><button onclick="start_animation()">Start/Resume</button></td>
     <td><button onclick="reset_animation()">Reset</button></td>
-    <td class="rightAlign"><button onclick="smack_puck()">Smack puck northwards</button></td>		
+    <td class="rightAlign"><button onclick="nudge_puck()">Nudge puck northwards</button></td>		
     <td class="rightAlign"><button onclick="slope_increase()">Increase dish slope</button></td>
     <td><b id="slope"></b></td>
     <td class="rightAlign"><button onclick="friction_increase()">Increase friction</button></td>
@@ -59,7 +70,8 @@
 <canvas id="canvasLTwo" width="500" height="500" style="position: absolute; left: 550px; top: 0px; z-index: 1;"></canvas>
 </div>
 
-
+<a style="position: absolute; top: 620px; left: 50px;" href=http://www.hoitaus.com/drupal/rotating_dish>Instructions</a>
+<div style="position: absolute; top: 620px; left: 200px;" class="fb-like" data-href="http://www.hoitaus.com/drupal/files/rotating_dish/dish.html" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
 </body>
 </html>
  
