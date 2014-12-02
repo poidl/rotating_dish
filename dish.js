@@ -1,8 +1,12 @@
 // credits: 
 // *) Ken Fyrstenberg http://stackoverflow.com/questions/19071975/javascript-animation-with-multiple-settimeout
 // *) Fulton, S., Fulton, J. (2013): HTML5 Canvas http://chimera.labs.oreilly.com/books/1234000001654/index.html
+// *) Cory and Gabe http://stackoverflow.com/questions/7641130/center-text-in-table-cell/7641141#7641141
 // *) Modernizr http://modernizr.com/
 // *) Olbers, Dirk, Jürgen Willebrand, and Carsten Eden. Ocean Dynamics. Springer, 2012.
+// *) Wallace, John M., and Peter V. Hobbs. Atmospheric science: an introductory survey. Vol. 92. Academic press, 2006.
+//       http://books.google.com.au/books?id=HZ2wNtDOU0oC&pg=PA278&lpg=PA278&dq=rotating+dish&source=bl&ots=C3LHphsXRY&sig=4JvN0NazVGJqRXyE-A246dlzlgI&hl=en&sa=X&ei=yiJ9VNHTHom58gX09IGwCQ&ved=0CDwQ6AEwBA#v=onepage&q=rotating%20dish&f=false
+// *) Marshall, J., 2003 http://paoc.mit.edu/labweb/lab5/inertial%20circles/inertial_circle.pdf
 
 window.addEventListener('load', eventWindowLoaded, false);
 var id = null;
@@ -24,7 +28,6 @@ function eventWindowLoaded() {
     ctx2.translate(0,cvs1.height);
 	ctx2.scale(1,-1);		
 	drawDish();
-//	drawPuck();
     canvasApp();
 }
 
@@ -90,15 +93,6 @@ function drawDish() {
 	ctx.fill();	
 }
 
-   //var speed = 5;
-   //var p1 = {x:20,y:20};
-   //var angle = 35;
-   //var radians = 0;
-   //var xunits = 0;
-   //var yunits = 0;
-   //var ball = {x:p1.x, y:p1.y};
-   //updateBall();
-
 
 function canvasApp() {
 	
@@ -112,14 +106,13 @@ function canvasApp() {
 		this.y = y;
 		this.u = u;
 		this.v = v;    
-		//this.dudt = dudt;
-		//this.dvdt = dvdt;
 		
 
 		/// this will update the object by incrementing x and y
 		this.update = function() {
 		    px=9.81*(2/Math.pow(a,2))*(me.x-cx);
 			py=9.81*(2/Math.pow(a,2))*(me.y-cy);
+			// linear friction
 		    dudt= 2*om*me.v - r*me.u + Math.pow(om,2)*(me.x-cx) - px;
 		    dvdt=-2*om*me.u - r*me.v + Math.pow(om,2)*(me.y-cy) - py;
 			
@@ -140,19 +133,20 @@ function canvasApp() {
 			ctx.closePath();
 			ctx.fillStyle = '#000000';
 			ctx.fill();
-			
 
 			phi=om*t; // from the non-inertial frame to the inertial one
 			
 			posx=0.5*cx;
 			posy=0;
 			ctx2.beginPath();
-			ctx2.arc(cx+posx*Math.cos(phi)-posy*Math.sin(phi), cy+posx*Math.sin(phi)+posy*Math.cos(phi), 20, 0, 2 * Math.PI);
+			cosi=Math.cos(phi);
+			sine=Math.sin(phi);
+			ctx2.arc(cx+posx*cosi-posy*sine, cy+posx*sine+posy*cosi, 20, 0, 2 * Math.PI);
 			ctx2.closePath();
 			ctx2.fillStyle = '#00FF00';
 			ctx2.fill();
 			posx=-0.5*cx;
-			ctx2.arc(cx+posx*Math.cos(phi)-posy*Math.sin(phi), cy+posx*Math.sin(phi)+posy*Math.cos(phi), 20, 0, 2 * Math.PI);
+			ctx2.arc(cx+posx*cosi-posy*sine, cy+posx*sine+posy*cosi, 20, 0, 2 * Math.PI);
 			ctx2.closePath();
 			ctx2.fillStyle = '#00FF00';
 			ctx2.fill();	
@@ -160,37 +154,22 @@ function canvasApp() {
 			ctx2.beginPath();			
 			posx=me.x-cx;
 			posy=me.y-cy;
-			ctx2.arc(cx+posx*Math.cos(phi)-posy*Math.sin(phi), cy+posx*Math.sin(phi)+posy*Math.cos(phi), 10, 0, 2 * Math.PI);
+			ctx2.arc(cx+posx*cosi-posy*sine, cy+posx*sine+posy*cosi, 10, 0, 2 * Math.PI);
 			ctx2.closePath();
 			ctx2.fillStyle = '#000000';
 			ctx2.fill();
-
-						
 
 		}
 		return this;
 	}
 
-	//function drawPuck() {
-		//cvs = document.getElementById("canvasTwo");
-		//ctx = cvs.getContext("2d");
-
-		//var x = cvs.width / 2;
-		//var y = 2*cvs.height / 5;
-		//circ=animCircle(ctx, x, y, 0,0,0,0)	
-		//circ.update()
-	//}
 
 	function loop() {
 		
 		ctx.clearRect(0, 0, cvs.width, cvs.height); // clear
         ctx2.clearRect(0, 0, cvs.width, cvs.height); // clear
 		
-		//puck.dudt=0;
-		//puck.dvdt=9.81;
-		
 		puck.update();
-		
 
 		/// use this instead of setTimeout/setInterval (!)
 		id=requestAnimationFrame(loop);
@@ -211,20 +190,35 @@ function canvasApp() {
 	dt=0.1;
 	om=0.1; // angular velocity omega 0.1
 	r=0.0; // friction 0.0
-	a=44	; // parabola constant 44
-	u0= 0*om*(y-cy); // start with no friction
-	v0= -0*om*(x-cx);
-	//dudt0= 2*om*v0 - r*(puck.u+om*puck.y) + Math.pow(om,2)*puck.x;
-	//dvdt0=-2*om*puck.u - r*(puck.v-om*puck.x) + Math.pow(om,2)*puck.y;	
+	
+	// start with zero u,v-> no coriolis force
+	u0= 0; 
+	v0= 0;
+	// Compute parabola constant such that at there is an equilibrium between 
+	// gravity and centrifugal force at the start.
+	// In case the coriolis force vanishes, this means no acceleration in the 
+	// rotating frame.
+	a=Math.sqrt(2*9.81)/om; // parabola constant
+
+	
 	puck=animCircle(ctx,ctx2, x, y, u0, v0);
 	puck.update();
-	//requestAnimationFrame(loop)
-	document.getElementById('slope').innerHTML = 'Slope: '+1/a
-	document.getElementById('friction').innerHTML = 'Friction: '+r
+
+
 	window.r=r
 	window.a=a
+	window.a0=a; // initial values. Stored for update via button.
+	window.r0=r; 
+	
+	update_slope();
+	update_friction();
 }
 
+
+c_r=0; // ?? for update via button, use integer factors to avoid roundoff drift ??
+c_a=0;
+step_r=0.1;
+step_a=1;
 function start_animation() {
 
 	////start the first frame
@@ -235,20 +229,41 @@ function cancel_animation() {
 	////cancel the latest frame.
 	cancelAnimationFrame(id);
 }
+
+function reset_animation() {
+	location.reload();
+}
 	
 function slope_increase() {
-	a-=1;
-	document.getElementById('slope').innerHTML = 'Slope: '+1/a
+	c_a+=1;
+    update_slope();
 }
 function slope_decrease() {
-	a+=1;
-	document.getElementById('slope').innerHTML = 'Slope: '+1/a
+	c_a-=1;
+    update_slope();
 }
 function friction_increase() {
-	r+=0.1;
-	document.getElementById('friction').innerHTML = 'Friction: '+r
+	c_r+=1;
+	update_friction();
 }
 function friction_decrease() {
-	r-=0.1;
-	document.getElementById('friction').innerHTML = 'Friction: '+r
+	c_r-=1;
+	update_friction();
+}
+function smack_puck() {
+	puck.v+= 5.;
+}
+
+function update_slope() {
+	a=a0-c_a*step_a; // steepness increases with decreasing a
+	document.getElementById('slope').innerHTML = '"Slope": '+Math.round(1e4/a)/10;
+}
+
+function update_friction() {
+	r=r0+c_r*step_r;
+	if (r<0){
+		r=0;
+		c_r=0;
+	} 
+	document.getElementById('friction').innerHTML = '"Friction": '+Math.round(10*r)/10
 }
