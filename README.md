@@ -61,6 +61,3 @@ in the subpolar region of the northern hemisphere (outer rim of the dish) and lo
 ### Experiment 3: Friction
 
 * After setting up a "geostrophic" motion, increase the friction. What happens?
-
-
-
