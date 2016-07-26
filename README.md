@@ -5,7 +5,10 @@ Coriolis force on a rotating parabolic dish.
 
 Intersting for students of geophysical fluid dynamics. Try it here: [external link](https://s3-ap-southeast-1.amazonaws.com/srihafiles/rotating_dish/dish.html)
 
-![Unable to load](https://github.com/poidl/rotating_dish/blob/master/pics/screenshot.png "Screenshot")
+[![Unable to load screenshot][2]][1]
+
+  [1]: https://s3-ap-southeast-1.amazonaws.com/srihafiles/rotating_dish/dish.html
+  [2]: https://github.com/poidl/rotating_dish/blob/master/pics/screenshot.png (Click to try!)
 
 The MIT has a website describing an experiment with a real rotating parabolic turntable: <a href=http://paoc.mit.edu/labweb/lab5/gfd_v.htm>GFDLab V: Inertial Circles</a>.
 
