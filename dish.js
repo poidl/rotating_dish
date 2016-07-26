@@ -1,4 +1,4 @@
-//@licstart  The following is the entire license notice for the 
+//@licstart  The following is the entire license notice for the
 //JavaScript code in this page.
 
 //Copyright (C) 2014  Stefan Riha
@@ -19,8 +19,8 @@
 
 //@licend  The above is the entire license notice
 //for the JavaScript code in this page.
-    
-// credits: 
+
+// credits:
 // *) Ken Fyrstenberg http://stackoverflow.com/questions/19071975/javascript-animation-with-multiple-settimeout
 // *) Fulton, S., Fulton, J. (2013): HTML5 Canvas http://chimera.labs.oreilly.com/books/1234000001654/index.html
 // *) Cory and Gabe http://stackoverflow.com/questions/7641130/center-text-in-table-cell/7641141#7641141
@@ -41,16 +41,17 @@ function eventWindowLoaded() {
 	ctx1.scale(1,-1);
     ctx2.translate(0,cvs1.height);
 	ctx2.scale(1,-1);
-	
+
 	cvs1 = document.getElementById("canvasLOne")
 	ctx1= cvs1.getContext("2d");
 	ctx2 = document.getElementById("canvasLTwo").getContext("2d");
     ctx1.translate(0,cvs1.height);
 	ctx1.scale(1,-1);
     ctx2.translate(0,cvs1.height);
-	ctx2.scale(1,-1);		
+	ctx2.scale(1,-1);
 	drawDish();
     canvasApp();
+	start_animation();
 }
 
 function canvasSupport () {
@@ -65,30 +66,30 @@ function drawDish() {
 	var cx = cvs.width / 2;
 	var cy = cvs.height / 2;
 	var radius = cx-1;
-	
+
 	ctx.beginPath();
 	ctx.arc(cx, cy, radius, 0, 2 * Math.PI, false);
 	ctx.fillStyle = '#EEEEEE';
 	ctx.fill();
 	ctx.lineWidth = 1;
 	ctx.strokeStyle = '#000000';
-	ctx.stroke(); 
+	ctx.stroke();
 	ctx.beginPath();
 	ctx.arc(cx, cy, radius/2, 0, 2 * Math.PI, false);
 	ctx.stroke();
-	
+
 	//// radial bar
 	//ctx.beginPath();
 	//ctx.rect(0, cy-0.5, cvs.width,1);
 	//ctx.fillStyle = '#000000';
 	//ctx.fill();
-		
+
 	// green dish decoration
     ctx.beginPath();
 	ctx.arc(cx, cy, 20, 0, 2 * Math.PI);
 	ctx.closePath();
 	ctx.fillStyle = '#000000';
-	ctx.fill();			
+	ctx.fill();
 	posx=0.5*cx;
 	ctx.arc(cx+posx, cy, 20, 0, 2 * Math.PI);
 	ctx.closePath();
@@ -97,33 +98,33 @@ function drawDish() {
 	ctx.arc(cx-posx, cy, 20, 0, 2 * Math.PI);
 	ctx.closePath();
 	ctx.fillStyle = '#000000';
-	ctx.fill();	
-	
+	ctx.fill();
+
 	// right
 	cvs = document.getElementById("canvasLOne");
 	ctx = cvs.getContext("2d");
-	
+
 	ctx.beginPath();
 	ctx.arc(cx, cy, radius, 0, 2 * Math.PI, false);
 	ctx.fillStyle = '#EEEEEE';
 	ctx.fill();
 	ctx.lineWidth = 1;
 	ctx.strokeStyle = '#000000';
-	ctx.stroke(); 	
+	ctx.stroke();
 	ctx.beginPath();
 	ctx.arc(cx, cy, radius/2, 0, 2 * Math.PI, false);
 	ctx.stroke();
-		
+
 	ctx.beginPath();
 	ctx.arc(cx, cy, 20, 0, 2 * Math.PI);
 	ctx.closePath();
 	ctx.fillStyle = '#000000';
-	ctx.fill();	
+	ctx.fill();
 }
 
 
 function canvasApp() {
-	
+
 	function animCircle(ctx,ctx2, x, y, u, v) {
 
 		/// keep a reference to 'this' context for external calls
@@ -133,8 +134,8 @@ function canvasApp() {
 		this.x = x;
 		this.y = y;
 		this.u = u;
-		this.v = v;    
-		
+		this.v = v;
+
 
 		/// this will update the object by incrementing x and y
 		this.update = function() {
@@ -143,7 +144,7 @@ function canvasApp() {
 			// linear friction
 		    dudt= 2*om*me.v - r*me.u + Math.pow(om,2)*(me.x-cx) - px;
 		    dvdt=-2*om*me.u - r*me.v + Math.pow(om,2)*(me.y-cy) - py;
-			
+
 			me.u += dudt*dt;
 			me.v += dvdt*dt;
 			me.x += me.u*dt;
@@ -163,7 +164,7 @@ function canvasApp() {
 			ctx.fill();
 
 			phi=om*t; // from the non-inertial frame to the inertial one
-			
+
 			posx=0.5*cx;
 			posy=0;
 			ctx2.beginPath();
@@ -177,9 +178,9 @@ function canvasApp() {
 			ctx2.arc(cx+posx*cosi-posy*sine, cy+posx*sine+posy*cosi, 20, 0, 2 * Math.PI);
 			ctx2.closePath();
 			ctx2.fillStyle = '#000000';
-			ctx2.fill();	
-			
-			ctx2.beginPath();			
+			ctx2.fill();
+
+			ctx2.beginPath();
 			posx=me.x-cx;
 			posy=me.y-cy;
 			ctx2.arc(cx+posx*cosi-posy*sine, cy+posx*sine+posy*cosi, 10, 0, 2 * Math.PI);
@@ -193,10 +194,10 @@ function canvasApp() {
 
 
 	function loop() {
-		
+
 		ctx.clearRect(0, 0, cvs.width, cvs.height); // clear
         ctx2.clearRect(0, 0, cvs.width, cvs.height); // clear
-		
+
 		puck.update();
 
 		/// use this instead of setTimeout/setInterval (!)
@@ -208,27 +209,27 @@ function canvasApp() {
 	ctx = cvs.getContext("2d");
 	cvs2 = document.getElementById("canvasLTwo");
 	ctx2 = cvs2.getContext("2d");
-	
+
 	var cx= cvs.width/2; // circle center
-	var cy= cvs.height/2; // circle center	
+	var cy= cvs.height/2; // circle center
 	var x = (3/2)*cx;
 	var y = cy;
-	
+
 	t=0;
 	dt=0.1;
 	om=0.1; // angular velocity omega 0.1
 	r=0.0; // friction 0.0
-	
+
 	// start with zero u,v-> no coriolis force
-	u0= 0; 
+	u0= 0;
 	v0= 0;
-	// Compute parabola constant such that at there is an equilibrium between 
+	// Compute parabola constant such that at there is an equilibrium between
 	// gravity and centrifugal force at the start.
-	// In case the coriolis force vanishes, this means no acceleration in the 
+	// In case the coriolis force vanishes, this means no acceleration in the
 	// rotating frame.
 	a=Math.sqrt(2*9.81)/om; // parabola constant
 
-	
+
 	puck=animCircle(ctx,ctx2, x, y, u0, v0);
 	puck.update();
 
@@ -236,8 +237,8 @@ function canvasApp() {
 	window.r=r
 	window.a=a
 	window.a0=a; // initial values. Stored for update via button.
-	window.r0=r; 
-	
+	window.r0=r;
+
 	update_slope();
 	update_friction();
 }
@@ -250,18 +251,22 @@ step_a=1;
 function start_animation() {
 
 	////start the first frame
-	id = requestAnimationFrame(loop);
+	console.log(id)
+	if (!id) {
+		id = requestAnimationFrame(loop);
+	}
 }
 
 function cancel_animation() {
 	////cancel the latest frame.
 	cancelAnimationFrame(id);
+	id = null;
 }
 
 function reset_animation() {
 	location.reload();
 }
-	
+
 function slope_increase() {
 	c_a+=1;
     update_slope();
@@ -292,6 +297,7 @@ function update_friction() {
 	if (r<0){
 		r=0;
 		c_r=0;
-	} 
+	}
 	document.getElementById('friction').innerHTML = '"Friction": '+Math.round(10*r)/10
 }
+	

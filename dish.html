@@ -2,13 +2,13 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>dish</title>
+<title>Rotating table</title>
 <script src="modernizr.js"></script>
 <script src="dish.js"></script>
 <link href="myrules.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-	
+
 <!--
 facebook. we want friends!?
 -->
@@ -23,18 +23,18 @@ facebook. we want friends!?
 
 <table style="width:1100px">
   <tr>
-    <td class="rightAlign"><button onclick="start_animation()">Start/Resume</button></td>
-    <td><button onclick="reset_animation()">Reset</button></td>
-    <td class="rightAlign"><button onclick="nudge_puck()">Nudge puck northwards</button></td>		
+    <td class="rightAlign"><button onclick="cancel_animation()">Pause</button></td>
+    <td><button onclick="start_animation()">Resume</button></td>
+    <td class="rightAlign"><button onclick="nudge_puck()">Nudge puck northwards</button></td>
     <td class="rightAlign"><button onclick="slope_increase()">Increase dish slope</button></td>
     <td><b id="slope"></b></td>
     <td class="rightAlign"><button onclick="friction_increase()">Increase friction</button></td>
     <td><b id="friction"></b></td>
   </tr>
   <tr>
-    <td class="rightAlign"><button onclick="cancel_animation()">Pause</button></td>
+    <td class="rightAlign"><button onclick="reset_animation()">Reset</button></td>
     <td></td>
-    <td class="rightAlign"></td>	
+    <td class="rightAlign"></td>
     <td class="rightAlign"><button onclick="slope_decrease()">Decrease dish slope</button></td>
     <td></td>
     <td class="rightAlign"><button onclick="friction_decrease()">Decrease friction</button></td>
@@ -45,16 +45,16 @@ facebook. we want friends!?
 
 <table style="width:1100px">
   <tr>
-	<td class="tdWidth"></td>  
+	<td class="tdWidth"></td>
     <td class="centerText">Rotating Camera</td>
     <td class="tdWidth"></td>
-    <td class="centerText">Fixed Camera</td>		
+    <td class="centerText">Fixed Camera</td>
   </tr>
 </table>
 
-  
+
 <!--
-<div style="position: absolute; top: 80px; left: 50px;">		
+<div style="position: absolute; top: 80px; left: 50px;">
 <span width="200"  style="position: absolute; left: 0; display:inline-block;">Rotating frame</span>
 <span style="position: absolute; left: 300;">Fixed frame</span>
 </div>
@@ -74,4 +74,3 @@ facebook. we want friends!?
 <div style="position: absolute; top: 620px; left: 200px;" class="fb-like" data-href="http://www.hoitaus.com/drupal/files/rotating_dish/dish.html" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
 </body>
 </html>
- 
